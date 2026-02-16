@@ -7,7 +7,7 @@ const HOST =
 const API =
 	typeof window !== "undefined" && window.location.hostname === "localhost"
 		? `http://${HOST}:8000`
-		: "https://support-automation.onrender.com"
+		: "https://supportautomation.onrender.com"
 export const UNAUTHORIZED_EVENT = "support-unauthorized"
 
 const client = axios.create({
