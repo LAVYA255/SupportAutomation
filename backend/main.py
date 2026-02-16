@@ -79,11 +79,20 @@ _write_secret_file("GMAIL_TOKEN_JSON", TOKEN_PATH)
 app = FastAPI()
 
 # CORS
-FRONTEND_ORIGINS = [
+DEFAULT_FRONTEND_ORIGINS = {
     "http://localhost:5173",
     "http://127.0.0.1:5173",
     "https://support-automation.vercel.app",
-]
+    "https://supportautomation.onrender.com",
+}
+
+ENV_FRONTEND_ORIGINS = {
+    origin.strip()
+    for origin in (os.getenv("FRONTEND_ORIGINS") or "").split(",")
+    if origin.strip()
+}
+
+FRONTEND_ORIGINS = sorted(DEFAULT_FRONTEND_ORIGINS | ENV_FRONTEND_ORIGINS)
 
 app.add_middleware(
     CORSMiddleware,
