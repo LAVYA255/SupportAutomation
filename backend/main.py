@@ -103,6 +103,10 @@ app.add_middleware(
 )
 # ---------------- AI SETUP ----------------
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+if not GEMINI_API_KEY:
+    GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY")
+    if GEMINI_API_KEY:
+        logger.info("Using GOOGLE_API_KEY for Gemini configuration.")
 MODEL_NAME = "models/gemini-2.5-flash"
 model = None
 
@@ -122,7 +126,7 @@ if GEMINI_API_KEY:
     )
 else:
     logger.warning(
-        "GEMINI_API_KEY is not set; falling back to canned responses for AI replies."
+        "Gemini API key is not set; configure GEMINI_API_KEY or GOOGLE_API_KEY for AI replies."
     )
 
 DEFAULT_REPLY = "Thank you for contacting support. Our team will get back to you shortly."
